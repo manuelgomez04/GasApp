@@ -9,7 +9,7 @@ import { ScreenComponent } from './components/screen/screen.component';
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 import { provideHttpClient } from '@angular/common/http';
 import { MaterialModule } from './modules/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GasListComponent } from './components/gas-list/gas-list.component';
 
 @NgModule({
@@ -24,7 +24,8 @@ import { GasListComponent } from './components/gas-list/gas-list.component';
     AppRoutingModule,
     NgbModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     provideAnimationsAsync(),

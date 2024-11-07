@@ -1,4 +1,21 @@
 <div class="container">
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Código Postal</mat-label>
+        <input type="text"
+               placeholder="Pick one"
+               aria-label="Código Postal"
+               matInput
+               [formControl]="postalCodeControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          @for (option of filteredPostalCodes | async; track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+
+
     <div class="row mt-3">
         @for (gasolinera of gasolinerasFiltradas; track gasolinerasFiltradas?.indexOf(gasolinera)) {
         <div class="col-lg-4 col-md-4 col-sm-6 mb-4">

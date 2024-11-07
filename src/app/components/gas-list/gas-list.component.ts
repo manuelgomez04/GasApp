@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { GasService } from '../../services/gas.service';
 import { Gasolinera } from '../../models/gas-item.dto';
+import { map, Observable, startWith } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-gas-list',
@@ -8,12 +10,38 @@ import { Gasolinera } from '../../models/gas-item.dto';
   styleUrls: ['./gas-list.component.css']
 })
 export class GasListComponent implements OnInit, OnChanges {
-  constructor(private gasService: GasService) {}
+  constructor(private gasService: GasService) { }
   listadoGasolineras: Gasolinera[] = [];
   gasolinerasFiltradas: Gasolinera[] = [];
 
   @Input() filters: { fuelType: string, valueMin: number, valueMax: number } | null = null;
   @Input() gasolineras: Gasolinera[] = [];
+
+  originalListadoGasolineras: Gasolinera[] = [];
+  filteredPostalCodes: Observable<string[]> | undefined;
+  postalCodeControl = new FormControl('');
+
+
+  private loadGasList() {
+    this.gasService.getGasList().subscribe((respuesta) => {
+      const respuestaEnString = JSON.stringify(respuesta);
+      let parsedData;
+      try {
+        parsedData = JSON.parse(respuestaEnString);
+        let arrayGasolineras = parsedData['ListaEESSPrecio'];
+        this.originalListadoGasolineras = this.cleanProperties(arrayGasolineras);
+        this.listadoGasolineras = [...this.originalListadoGasolineras];
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+      }
+    });
+  }
+  private _filterPostalCodes(value: string): string[] {
+    const filterValue = value.trim();
+    const postalCodes = this.originalListadoGasolineras.map(g => g.postalCode);
+    return postalCodes.filter(option => option.startsWith(filterValue));
+  }
+
 
   ngOnInit() {
     this.gasService.getGasList().subscribe((respuesta) => {
@@ -30,6 +58,12 @@ export class GasListComponent implements OnInit, OnChanges {
         console.error('Error parsing JSON:', error);
       }
     });
+
+    this.loadGasList();
+    this.filteredPostalCodes = this.postalCodeControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterPostalCodes(value || ''))
+    );
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -96,4 +130,7 @@ export class GasListComponent implements OnInit, OnChanges {
       this.gasolinerasFiltradas = this.listadoGasolineras;
     }
   }
+
+
+
 }

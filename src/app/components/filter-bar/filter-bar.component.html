@@ -20,18 +20,14 @@
                 </li>
                 <li class="nav-item dropdown">
                     <label for="priceRange">Rango de precio:</label>
-                    <mat-slider 
-                        min="0" 
-                        max="3" 
-                        step="0.1"
-                        [(ngModel)]="valueMin" 
-                        [discrete]="true" 
+                    <mat-slider min="0" max="3" step="0.1" [(ngModel)]="valueMin" [discrete]="true"
                         [showTickMarks]="0.1">
                         <input [(ngModel)]="valueMin" matSliderStartThumb>
                         <input [(ngModel)]="valueMax" matSliderEndThumb>
                     </mat-slider>
                     <button (click)="filterByPrice()">Buscar</button>
                 </li>
+                
             </ul>
         </div>
     </div>
