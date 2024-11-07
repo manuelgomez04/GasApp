@@ -1,0 +1,19 @@
+header {
+    width: 100%;
+    overflow: hidden;
+    /* Hide any overflow */
+}
+
+header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensure the image covers the entire area */
+}
+
+/* Show the dropdown menu on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    /* Adjust as needed */
+}

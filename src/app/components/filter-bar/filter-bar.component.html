@@ -1,1 +1,38 @@
-<p>filter-bar works!</p>
+<header>
+    <img src="https://i.imgur.com/sUM88po.png" alt="banner">
+</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <label for="fuelType">Tipo de gasolina:</label>
+                    <select id="fuelType" [(ngModel)]="selectedFuelType">
+                        <option value="Sin Plomo 95">Sin Plomo 95</option>
+                        <option value="Gasoleo">Gasoleo</option>
+                        <option value="Sin Plomo 98">Sin Plomo 98</option>
+                        <option value="Gasoleo Premium">Gasoleo Premium</option>
+                    </select>
+                </li>
+                <li class="nav-item dropdown">
+                    <label for="priceRange">Rango de precio:</label>
+                    <mat-slider 
+                        min="0" 
+                        max="3" 
+                        step="0.1"
+                        [(ngModel)]="valueMin" 
+                        [discrete]="true" 
+                        [showTickMarks]="0.1">
+                        <input [(ngModel)]="valueMin" matSliderStartThumb>
+                        <input [(ngModel)]="valueMax" matSliderEndThumb>
+                    </mat-slider>
+                    <button (click)="filterByPrice()">Buscar</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
