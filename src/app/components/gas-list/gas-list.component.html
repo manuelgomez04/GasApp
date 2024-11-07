@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row mt-3">
+        @for (gasolinera of listadoGasolineras; track listadoGasolineras?.indexOf(gasolinera)) {
+        <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+            <div class="card mb-4 h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{ gasolinera.nombre }}</h5>
+                    <hr>
+                    <p class="card-text text-center">{{ gasolinera.address }}</p>
+                    <p class="card-text text-center">C.P: {{ gasolinera.postalCode }}</p>
+                    <p class="card-text text-center">{{ gasolinera.schedule }}</p>
+                    <hr>
+                    <p class="card-text"  >Sin plomo
+                        95: {{ gasolinera.price95 }}€</p>
+                    <p class="card-text" >Sin plomo
+                        98: {{ gasolinera.price98 }}€</p>
+                    <p class="card-text" >Gasóleo A:
+                        {{ gasolinera.priceDiesel }}€</p>
+                    <p class="card-text">
+                        Gasóleo Premium: {{ gasolinera.priceGasoleoPremium }}€</p>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
